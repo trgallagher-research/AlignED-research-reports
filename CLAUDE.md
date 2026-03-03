@@ -1,116 +1,62 @@
-# AlignED Research Reports — Site Guidelines
+# AlignED Research Reports — Landing Page
 
 ## Project Overview
 
-AlignED Research Reports is a collection of research articles from the AlignED project, which benchmarks AI model performance on tasks related to professional teaching knowledge. This is a static HTML/CSS/JS site hosted on GitHub Pages. No build tools, no templating. Text is written directly in each page's HTML file.
+This repo is a simple landing page that indexes all AlignED research reports. Each report is a standalone GitHub Pages site in its own repo. This page links to them.
 
-Each article is a self-contained piece of research, stored in its own directory under `articles/`. The landing page (`index.html`) lists all articles as cards.
+Hosted on GitHub Pages at: `https://trgallagher-research.github.io/AlignED-research-reports/`
 
 ## File Structure
 
 ```
 AlignED-research-reports/
-  index.html                          # Landing page with article listing
-  css/style.css                       # Shared stylesheet for all pages
-  js/main.js                          # Shared JS (nav toggle only)
-  articles/
-    001-aligned-benchmark/
-      index.html                      # Article 1: full benchmark paper
-      data/                           # Frozen JSON data for Article 1 charts
-      js/charts.js                    # Chart rendering for Article 1
-  peer_reviews/                       # Preserved peer review markdown files
+  index.html          # Landing page with links to all reports
+  css/style.css       # Shared stylesheet (warm parchment palette)
+  js/main.js          # Navigation toggle
+  CLAUDE.md           # This file
+  .gitignore
 ```
 
-## Directory Pattern for New Articles
+## How to Add a New Report
 
-Each article follows the pattern `articles/NNN-slug/`:
+When a new report repo is published (e.g. `AlignED-research-report-2`):
 
-- `NNN` is a zero-padded number (001, 002, 003...)
-- `slug` is a short, lowercase, hyphenated description
-- Each article directory contains at minimum an `index.html`
-- Optional: `data/` for datasets, `js/` for article-specific scripts
+1. Enable GitHub Pages on the new repo (main branch, root path)
+2. Add a new article card to `index.html` following the existing pattern:
+   ```html
+   <a href="https://trgallagher-research.github.io/AlignED-research-report-N/" class="article-card" target="_blank">
+     <span class="article-date">Month Year</span>
+     <h3>Report N: Title Here</h3>
+     <p>Short description of the report's scope and key findings.</p>
+   </a>
+   ```
+3. Commit and push
 
-## How to Add a New Article
+## Report Naming Convention
 
-1. Create `articles/NNN-topic-slug/index.html`
-2. Use the same header pattern: "AlignED Reports" logo + "All Articles" link
-3. Use the same footer pattern with updated article-specific links
-4. Add a card to the landing page's article listing section
-5. If the article has charts, create `articles/NNN-topic-slug/js/charts.js` and `data/`
-6. Commit and push
+Each report is a separate repo following the pattern:
+- `AlignED-research-report` — Report 1 (the original)
+- `AlignED-research-report-2` — Report 2
+- `AlignED-research-report-3` — Report 3
+- etc.
 
-## Page Detection
+Each report site is frozen at publication and not updated after release.
 
-Articles use `document.body.dataset.page` for page-specific behaviour:
+## Writing Rules
 
-- `data-page="landing"` — index.html (landing page)
-- `data-page="article-001"` — Article 1 (charts render here)
+Follow the same epistemic precision, tone, and AI slop blacklist rules as the individual report repos. See `AlignED-research-report/CLAUDE.md` for the full set of writing guidelines.
 
-Future articles should use `data-page="article-NNN"` pattern.
-
-## Writing Rules (MUST follow for all copy changes)
-
-### Epistemic Precision (most important rule)
-
-AlignED exists because overclaiming is common in EdTech. The website must not do the same.
-
-What AlignED does: benchmarks how models respond to specific tasks related to professional teaching knowledge. What it does NOT do (never claim or imply): determine whether a model "understands" education, certify safety or suitability, prove a model "can teach" or "knows how learning works", or replace professional judgement.
-
-General principle: Report what was measured. Let the reader draw the inference.
-
-| Never write | Write instead |
-|-------------|---------------|
-| "Model X understands pedagogy" | "Model X scored 34/36 on diagnostic scenarios" |
-| "Tests whether AI knows how learning works" | "Tests how models handle tasks related to professional teaching knowledge" |
-| "Ensures educational safety" | "Provides benchmark data to inform decisions" |
-
-### The Evaluation Gap (critical framing)
-
-AlignED focuses on tasks teachers do, not tasks students do. Do not claim that most other benchmarks test only student knowledge. The correct framing is:
-
-> "There is a shortage of evaluations that test models on the educational tasks they are currently being used for: identifying misconceptions about learning, diagnosing why teaching strategies fail in practice, answering the kinds of questions that appear on teacher certification exams, and comparing student work against curriculum standards."
-
-### Tone
-
-- Short, confident sentences. Vary sentence length.
-- Active voice. Be direct about limitations.
-- Trust the reader's intelligence.
-- Lead with findings, not methodology on results pages.
-- Use British/Australian spelling (prioritise, recognise, organisation, behaviour).
-
-### AI Slop Blacklist
-
-DO NOT USE any of the following:
-
-Punctuation: Em dashes as all-purpose connectors (max one per page, zero is fine). Excessive colons. Semicolons as sentence glue.
-
-Phrasing: "It's not X, it's Y" / "Not just X, but Y". "In today's rapidly evolving...". "It's worth noting that...". "This is particularly important because...". "Whether you're a teacher, a policymaker, or a developer...". "The short answer is...". "Here's the thing:". "Let's dive in" / "Let's explore" / "Let's unpack". "At the end of the day". "Importantly," / "Crucially," / "Notably,".
-
-Words: Groundbreaking, Revolutionary, Ensure, Empower, Leverage, Harness, Holistic, Cutting-edge, State-of-the-art, Stakeholders, Ecosystem, Deep dive, Robust (as general praise; fine when referring to temperature robustness as a measured property), Genuine/Genuinely.
-
-Structural: Don't use rhetorical questions for every section header. Mix with declarative headers. Don't repeat "complementary" when describing ACARA. Say it once.
-
-### Footer Tagline (all pages)
-
-Use: "Research articles on AI in educational practice."
+Key rule: Report what was measured. Let the reader draw the inference. No overclaiming.
 
 ## Visual Design
 
-Warm parchment palette inspired by claude.ai and Financial Times:
-- Background: `#F4F1EB` (warm parchment)
-- Surface: `#FEFDFB` (off-white for cards)
-- Text: `#2D3748`
-- Primary: `#3B6B9A` (academic blue)
-- Accent: `#B67D5C` (terracotta)
+Warm parchment palette (same across all AlignED sites):
+- Background: `#F4F1EB`, Surface: `#FEFDFB`, Text: `#2D3748`
+- Primary: `#3B6B9A`, Accent: `#B67D5C`
+- Typography: Inter (headings) + Georgia (body)
 
-Typography: Inter (headings/UI) + Georgia (body text) + Consolas (code/prompts).
-Prose max-width: 960px. Charts can go wider (1100px via `.container-wide`).
+## Related Repos
 
-## CSS Rules
-
-All styles live in `css/style.css`. No inline styles on any page (except minor layout overrides like chart heights).
-
-## Related Sites
-
-- **AlignED-site** — Live benchmark results (scores, rankings, updated data)
-- **AlignED-research-report** — Archived original paper site (frozen with redirect banner)
+- **AlignED-research-report** — Report 1: Benchmarking AI Models for Educational Practice (Feb 2026)
+- **AlignED** — Core benchmark code, evaluation configs, datasets
+- **AlignED-site** — Live results dashboard (separate from reports)
